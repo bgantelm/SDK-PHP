@@ -1,0 +1,13 @@
+{
+    "name": "recastai/sdk-php",
+    "description": "The official PHP SDK Recast.ai",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bruno",
+            "email": "bruno.gantelmi@recast.ai"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
