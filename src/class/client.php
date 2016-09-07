@@ -8,16 +8,38 @@
   // var $language = 'en';
   // var $text = 'Quel est la capitale de la France?';
 
-// public function Client($token, $language)
-// {
-//   $token = $this->token;
-//   $language = $this->language;
-// }
+public static function __construct($token, $language)
+{
+  $this->token = $token;
+  $this->language = $language;
+}
   public static function textRequest($text)
   {
-  $token = 'TOKEN';
-  $language = 'en';
     $params = array('text' => $text);
+    // if ($language) {
+    //   echo 'lol';
+    //   $params->language = $language;
+    // }
+
+    if (!$this->token) {
+      return('error');
+    } else
+    {
+      $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $this->token);
+      $url = 'https://api.recast.ai/v1/request';
+
+      $response = Requests::post($url, $headers, json_encode($params));
+      var_dump($response);
+      return($response->body);
+    }
+  }
+
+  public static function fileRequest($file)
+  {
+  $token = '4d416c43f41a1fa809db7932cae854c1';
+  $language = 'en';
+
+    $params = array('file' => $file);
     // if ($language)
     // {
     //   echo 'lol';
@@ -34,7 +56,7 @@
       $url = 'https://api.recast.ai/v1/request';
 
       $response = Requests::post($url, $headers, json_encode($params));
-      var_dump($response->body);
+      var_dump($response);
       return($response->body);
     }
   }
