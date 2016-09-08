@@ -6,9 +6,11 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class Response
 {
-  public static function __construct($response)
+  public function __construct($response)
   {
-    $this.entities = []
+    echo $response;
+    echo $this;
+    $this.entities == []
     $this->act = $response->act
     $this->type = $response->type
     $this->source = $response->source

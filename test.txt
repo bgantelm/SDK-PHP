@@ -1,7 +1,4 @@
-<?php
-
-class Test {
-  "source": "What is the weather in London tomorrow? And in Paris?",
+"source": "What is the weather in London tomorrow? And in Paris?",
   "intents": [
     {
       "name": "weather",
@@ -49,4 +46,3 @@ class Test {
   "version": "2.0.0",
   "timestamp": "2016-07-10T23:17:59+02:00",
   "status": 200
-}
