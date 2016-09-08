@@ -9,34 +9,49 @@ class Response
   public static function __construct($response)
   {
     $this.entities = []
-        $this->act = $response->act
-        $this->type = $response->type
-        $this->source = $response->source
-        $this->intents = $response->intents
-        $this->sentiment = $response->sentiment
+    $this->act = $response->act
+    $this->type = $response->type
+    $this->source = $response->source
+    $this->intents = $response->intents
+    $this->sentiment = $response->sentiment
 
-        // forEach($response->entities as $key => $value){
-        //   $value->forEach($entity => $this->entities->push(new Entity($key, $entity)))
-        // })
+    foreach ($response->entities as $key => $value) {
+      $value.foreach($entity) {
+        $this->entities[] = new Entity(key, entity);
+      }
+    }
 
-        $this->language = $response->language
-        $this->version = $response->version
-        $this->timestamp = $response->timestamp
-        $this->status = $response->status
+    // forEach($response->entities as $key => $value){
+    //   $value->forEach($entity => $this->entities->push(new Entity($key, $entity)))
+    // })
+
+    $this->language = $response->language
+    $this->version = $response->version
+    $this->timestamp = $response->timestamp
+    $this->status = $response->status
   }
 
   public static function get($name) {
-
+    if ($entity->name = $name) {
+      $entity[] = $entity->name;
+      return ($entity);
+    }
+    return null;
   }
 
 
   public static function all($name) {
-
+    for (int i = 0; $entity[i]->name ; i++)
+    if ($entity->name = $name) {
+      $entity[] = $entity->name;
+      return ($entity);
+    }
+    return null;
   }
 
 
   public static function intent() {
-
+    return ($this.intent[0] || null);
   }
 
 

@@ -13,13 +13,13 @@ class Client
     $this->token = $token;
     $this->language = $language;
   }
+
   public static function textRequest($text)
   {
     $params = array('text' => $text);
-    // if ($language) {
-    //   echo 'lol';
-    //   $params->language = $language;
-    // }
+    if ($language) {
+      $params->language = $language;
+    }
 
     if (!$this->token) {
       return('error');
@@ -38,12 +38,10 @@ class Client
     $token = '4d416c43f41a1fa809db7932cae854c1';
     $language = 'en';
 
-    $params = array('file' => $file);
-    // if ($language)
-    // {
-    //   echo 'lol';
-    //   $params->language = $language;
-    // }
+    $params = array();
+    if ($language) {
+      $params->language = $language;
+    }
 
     if (!$token)
     {
