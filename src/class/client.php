@@ -26,9 +26,8 @@ public static function __construct($token, $language)
     } else
     {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $this->token);
-      $url = 'https://api.recast.ai/v1/request';
 
-      $response = Requests::post($url, $headers, json_encode($params));
+      $response = Requests::post(Constants->$API_ENDPOINT, $headers, json_encode($params));
       var_dump($response);
       return($response->body);
     }
