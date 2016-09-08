@@ -1,18 +1,18 @@
- <?php
+<?php
 
- require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
- class Client
+class Client
 {
   // var $token = '4d416c43f41a1fa809db7932cae854c1';
   // var $language = 'en';
   // var $text = 'Quel est la capitale de la France?';
 
-public static function __construct($token, $language)
-{
-  $this->token = $token;
-  $this->language = $language;
-}
+  public static function __construct($token, $language)
+  {
+    $this->token = $token;
+    $this->language = $language;
+  }
   public static function textRequest($text)
   {
     $params = array('text' => $text);
@@ -35,8 +35,8 @@ public static function __construct($token, $language)
 
   public static function fileRequest($file)
   {
-  $token = '4d416c43f41a1fa809db7932cae854c1';
-  $language = 'en';
+    $token = '4d416c43f41a1fa809db7932cae854c1';
+    $language = 'en';
 
     $params = array('file' => $file);
     // if ($language)
@@ -63,4 +63,4 @@ public static function __construct($token, $language)
 }
 $text = 'Quel est la capitale de la France?';
 
-  $lol = Client::textRequest($text);
+$lol = Client::textRequest($text);
