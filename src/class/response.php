@@ -21,10 +21,6 @@ class Response
       }
     }
 
-    // forEach($response->entities as $key => $value){
-    //   $value->forEach($entity => $this->entities->push(new Entity($key, $entity)))
-    // })
-
     $this->language = $response->language
     $this->version = $response->version
     $this->timestamp = $response->timestamp
@@ -41,10 +37,11 @@ class Response
 
 
   public static function all($name) {
-    for (int i = 0; $entity[i]->name ; i++)
-    if ($entity->name = $name) {
-      $entity[] = $entity->name;
-      return ($entity);
+    for (int i = 0; $entity[i]->name ; i++) {
+      if ($entity->name = $name) {
+        $entity[] = $entity->name;
+        return ($entity);
+      }
     }
     return null;
   }
