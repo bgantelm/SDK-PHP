@@ -1,6 +1,6 @@
 <?php
+namespace class\response;
 
-namespace sdkphp\Response;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 

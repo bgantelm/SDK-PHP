@@ -1,5 +1,5 @@
 <?php
-namespace sdkphp\Client;
+namespace class\client;
 //
 // global $foo;
 // echo $foo;
@@ -34,8 +34,8 @@ class Client
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
       $API_ENDPOINT = 'https://api.recast.ai/v1/request';
       echo $text;
-      require ('/vendor/rmccue/requests/library/Requests.php');
-      echo 'lol';
+      require 'response.php';
+      $lil = new sdkphp\Response;
       // $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
       //var_dump($response);
       // return(new Response($response->body));
