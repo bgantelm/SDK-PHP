@@ -4,34 +4,42 @@ namespace Response;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+
+$response = file_get_contents("test.json");
+$lol = new Response($response);
+var_dump($lol->{'type'});
+$lol::isWhQuery1($lol->{'type'});
 class Response
 {
+
+
   public function __construct($response)
   {
-    echo $response;
-    echo $this;
-    $this.entities == []
-    $this->act = $response->act
-    $this->type = $response->type
-    $this->source = $response->source
-    $this->intents = $response->intents
-    $this->sentiment = $response->sentiment
+    $res = json_decode($response);
+    // $this->entities == [];
+    $this->act = $res->{'act'};
+    var_dump($res->{'act'});
+    var_dump($this->act);
+    $this->type = $res->{'type'};
+    $this->source = $res->{'source'};
+    $this->intents = $res->{'intents'};
+    $this->sentiment = $res->{'sentiment'};
 
-    foreach ($response->entities as $key => $value) {
-      $value.foreach($entity) {
-        $this->entities[] = new Entity(key, entity);
-      }
-    }
+    // foreach ($res->{'entities'} as $key => $value) {
+    //   $value.foreach($entity) {
+    //     $entities[] = new Entity(key, entity);
+    //   }
+    // };
 
-    $this->language = $response->language
-    $this->version = $response->version
-    $this->timestamp = $response->timestamp
-    $this->status = $response->status
+    $this->language = $res->{'language'};
+    $this->version = $res->{'version'};
+    $this->timestamp = $res->{'timestamp'};
+    $this->status = $res->{'status'};
   }
 
   public static function get($name) {
-    if ($entity->name = $name) {
-      $entity[] = $entity->name;
+    if ($entity->{'name'} = $name) {
+      $entity[] = $entity->{'name'};
       return ($entity);
     }
     return null;
@@ -39,9 +47,9 @@ class Response
 
 
   public static function all($name) {
-    for (int i = 0; $entity[i]->name ; i++) {
-      if ($entity->name = $name) {
-        $entity[] = $entity->name;
+    for ($i = 0; $entity[$i]->name ; $i++) {
+      if ($entity->{'name'} = $name) {
+        $entity[] = $entity->{'name'};
         return ($entity);
       }
     }
@@ -50,33 +58,33 @@ class Response
 
 
   public static function intent() {
-    return ($this.intent[0] || null);
+    return ($this->{'intents'}[0] || null);
   }
 
 
   public static function isAssert() {
-    if ($this->act === $constants->ACT_ASSERT) {
+    if ($this->act === 'assert') {
       return (true);
     }
     return (false);
   }
 
   public static function isCommand() {
-    if ($this->act === $constants->ACT_COMMAND) {
+    if ($this->act === 'command') {
       return (true);
     }
     return (false);
   }
 
-  public static function isWhQuery1() {
-    if ($this->act === $constants->ACT_WH_QUERY) {
+  public static function isWhQuery1($act) {
+    if ($act === 'wh-query') {
       return (true);
     }
     return (false);
   }
 
   public static function isYnQuery() {
-    if ($this->act === $constants->ACT_YN_QUERY) {
+    if ($this->act === 'yn-query') {
       return (true);
     }
     return (false);
@@ -86,42 +94,42 @@ class Response
 
 
   public static function isAbbreviation() {
-    if ($this->type->indexOf($constants->TYPE_ABBREVIATION) !== -1) {
+    if ($this->type->indexOf('abbr:') !== -1) {
       return (true);
     }
     return (false);
   }
 
   public static function isEntity() {
-    if ($this->type->indexOf($constants->TYPE_ENTITY) !== -1) {
+    if ($this->type->indexOf('enty:') !== -1) {
       return (true);
     }
     return (false);
   }
 
   public static function isDescription() {
-    if ($this->type->indexOf($constants->TYPE_DESCRIPTION) !== -1) {
+    if ($this->type->indexOf('desc:') !== -1) {
       return (true);
     }
     return (false);
   }
 
   public static function isHuman() {
-    if ($this->type->indexOf($constants->TYPE_HUMAN) !== -1) {
+    if ($this->type->indexOf('hum:') !== -1) {
       return (true);
     }
     return (false);
   }
 
   public static function isLocation() {
-    if ($this->type->indexOf($constants->TYPE_LOCATION) !== -1) {
+    if ($this->type->indexOf('loc:') !== -1) {
       return (true);
     }
     return (false);
   }
 
   public static function isNumber() {
-    if ($this->type->indexOf($constants->TYPE_NUMBER) !== -1) {
+    if ($this->type->indexOf('num:') !== -1) {
       return (true);
     }
     return (false);
@@ -131,21 +139,21 @@ class Response
 
 
   public static function isPositive() {
-    if ($this->sentiment === $constants->SENTIMENT_POSITIVE) {
+    if ($this->sentiment === 'positive') {
       return (true);
     }
     return (false);
   }
 
-  public static function isNeutral() {
-    if ($this->sentiment === $constants->SENTIMENT_NEUTRAL) {
+  public function isNeutral() {
+    if ($this->sentiment === 'neutral') {
       return (true);
     }
     return (false);
   }
 
   public static function isNegative() {
-    if ($this->sentiment === $constants->SENTIMENT_NEGATIVE) {
+    if ($this->sentiment === 'negative') {
       return (true);
     }
     return (false);

@@ -4,7 +4,6 @@ namespace Constants;
 
 class Constants
 {
-
   public function __construct() {
     $API_ENDPOINT = 'https://api.recast.ai/v1/request';
 
