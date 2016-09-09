@@ -1,6 +1,9 @@
 <?php
 namespace client;
 //
+require 'response.php';
+
+use response;
 // global $foo;
 // echo $foo;
 // echo $API_ENDPOINT;
@@ -33,12 +36,12 @@ class Client
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
       $API_ENDPOINT = 'https://api.recast.ai/v1/request';
-      echo $text;
-      require 'response.php';
-      $lil = new sdkphp\Response;
-      // $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
-      //var_dump($response);
-      // return(new Response($response->body));
+      $response = file_get_contents("test.json");
+
+      // $lil = new response\Response($response);
+      $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
+      var_dump($response);
+      return(new response\Response($response->body));
     }
   }
 
