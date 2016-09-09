@@ -1,9 +1,8 @@
 <?php
 
+namespace Client;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-
-namespace Client;
 //
 // global $foo;
 // echo $foo;
@@ -14,10 +13,6 @@ namespace Client;
 
 class Client
 {
-   var $token = '4d416c43f41a1fa809db7932cae854c1';
-   var $language = 'en';
-   var $text = 'Quel est la capitale de la France?';
-
   public  function __construct($token, $language)
   {
     $this->token = $token;
