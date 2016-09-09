@@ -1,5 +1,5 @@
 <?php
-namespace class\response;
+namespace response;
 
 
 require_once __DIR__ . '/../../vendor/autoload.php';

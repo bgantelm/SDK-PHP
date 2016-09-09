@@ -1,5 +1,5 @@
 <?php
-namespace class\client;
+namespace client;
 //
 // global $foo;
 // echo $foo;
