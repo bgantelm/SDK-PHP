@@ -1,7 +1,9 @@
 <?php
 
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+namespace Client;
 //
 // global $foo;
 // echo $foo;
@@ -36,8 +38,7 @@ class Client
 
     if (!$token) {
       return('error');
-    } else
-    {
+    } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
       $API_ENDPOINT = 'https://api.recast.ai/v1/request';
 
