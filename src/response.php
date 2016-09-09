@@ -7,8 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $response = file_get_contents("test.json");
 $lol = new Response($response);
-var_dump($lol->{'type'});
-$lol::isWhQuery1($lol->{'type'});
+var_dump($lol->{'act'});
+$lol::isWhQuery1($lol->{'act'});
 class Response
 {
 
@@ -76,6 +76,7 @@ class Response
 
   public function isWhQuery1($act) {
     if ($act === 'wh-query') {
+      echo 'OK, function DONE';
       return (true);
     }
     return (false);

@@ -1,9 +1,8 @@
 <?php
 namespace client;
 //
-// require 'response.php';
 
-// use response;
+use response;
 use Requests;
 // global $foo;
 // echo $foo;
@@ -38,13 +37,14 @@ class Client
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
       $API_ENDPOINT = 'https://api.recast.ai/v1/request';
-  //    $response = file_get_contents("test.json");
+      $response = file_get_contents("test.json");
 
       // $lil = new response\Response($response);
       require 'vendor/autoload.php';
       $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
       var_dump($res);
-  //    return(new response\Response($response->body));
+    require 'response.php';
+    return(new response\Response($response));
     }
   }
 
