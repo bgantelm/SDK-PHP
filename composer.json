@@ -18,7 +18,7 @@
   },
   "autoload": {
         "psr-4": {
-            "SDK-PHP\\": "src/class/"
+            "Client\\": "src/class/"
         }
     }
 }
