@@ -52,19 +52,23 @@ class Client
     }
     echo $token;
     if ($this->language) {
-      $params = array('language' => $this->language);
+      $params = array('voice' => $file, 'language' => $this->language);
     } else {
-      $params = array();
+      $params = array('voice' => $file);
     }
+    var_dump($params);
     if (!$token) {
+      echo 'error';
       return('error');
     } else {
-      $headers = array('Content-Type' => '', 'Authorization' => "Token " . $token);
+      $headers = array('enctype' => 'multipart/form-data', 'Authorization' => "Token " . $token);
       $url = 'https://api.recast.ai/v1/request';
+      //$response = file_get_contents("test.json");
+      require 'vendor/autoload.php';
 
-      $response = Requests::post($url, $headers, json_encode($params));
-      var_dump($response);
-      return($response->body);
+      $res = Requests::post($url, $headers, json_encode($params));
+      var_dump($res);
+      //return(new response\Response($response));
     }
   }
 }
