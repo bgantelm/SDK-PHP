@@ -1,15 +1,13 @@
 <?php
 
-namespace Entity;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace entity;
 
 Class Entity {
 
-  public static function __construct($name, $data) {
+  public function __construct($name, $data) {
     $this->name = $name;
     foreach ($data as $key => $value) {
-      $key = $value;
+      $this->$key = $value;
     }
   }
 }

@@ -2,61 +2,76 @@
 namespace response;
 
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use entity;
 
 
 $response = file_get_contents("test.json");
+echo 'START RESPONSE                 ';
 $lol = new Response($response);
-var_dump($lol->{'act'});
-$lol::isWhQuery1($lol->{'act'});
+ $mdr = $lol->isWhQuery1();
+ var_dump($mdr);
+ echo 'END RESPONSE                   ';
 class Response
 {
 
 
   public function __construct($response)
   {
+    echo 'START CONSTRUCTOR RESPONSE                      ';
     $res = json_decode($response);
-    // $this->entities == [];
+    $this->entities = [];
+
+    $this->entities = $res->{'entities'};
     $this->act = $res->{'act'};
     $this->type = $res->{'type'};
     $this->source = $res->{'source'};
     $this->intents = $res->{'intents'};
     $this->sentiment = $res->{'sentiment'};
+    $this->entity = [];
 
-    // foreach ($res->{'entities'} as $key => $value) {
-    //   $value.foreach($entity) {
-    //     $entities[] = new Entity(key, entity);
-    //   }
-    // };
+    require_once 'entity.php';
+
+    foreach ($res->{'entities'} as $key => $value) {
+      foreach ($value as $i => $entity) {
+        $this->entity[] = new entity\Entity($key, $entity);
+      }
+    }
 
     $this->language = $res->{'language'};
     $this->version = $res->{'version'};
     $this->timestamp = $res->{'timestamp'};
     $this->status = $res->{'status'};
+    echo 'END CONSTRUCTOR RESPONSE               ';
   }
 
   public function get($name) {
-    if ($entity->{'name'} = $name) {
-      $entity[] = $entity->{'name'};
-      return ($entity);
+    $count = count($this->entity);
+    for ($i = 0; $i <= $count; $i++) {
+      if ($this->entity[$i]->name == $name) {
+       return ($this->entity[$i]);
+     }
     }
     return null;
   }
 
 
   public function all($name) {
-    for ($i = 0; $entity[$i]->name ; $i++) {
-      if ($entity->{'name'} = $name) {
-        $entity[] = $entity->{'name'};
-        return ($entity);
+    $count = count($this->entity);
+    $res = [];
+    for ($i = 0; $i <= $count ; $i++) {
+      for ($i = $i; $this->entity[$i]->name == $name; $i++) {
+        $res[] = $this->entity[$i];
       }
     }
-    return null;
+    return ($res);
   }
 
 
   public function intent() {
-    return ($this->{'intents'}[0] || null);
+    if ($this->intents[0])
+    return ($this->intents[0]);
+    else
+     return (null);
   }
 
 
@@ -74,8 +89,8 @@ class Response
     return (false);
   }
 
-  public function isWhQuery1($act) {
-    if ($act === 'wh-query') {
+  public function isWhQuery1() {
+    if ($this->act === 'wh-query') {
       echo 'OK, function DONE';
       return (true);
     }
