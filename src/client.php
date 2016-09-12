@@ -1,36 +1,32 @@
 <?php
 namespace client;
-//
 
 use response;
 use Requests;
-// global $foo;
-// echo $foo;
-// echo $API_ENDPOINT;
-// // use 'Constants';
-// $response = file_get_contents("test.json");
-// var_dump(json_decode($response));
+
 
 class Client
 {
-   var $token = '4d416c43f41a1fa809db7932cae854c1';
-   var $language = 'en';
-   var $text = 'Quel est la capitale de la France?';
-
   public  function __construct($token, $language)
   {
     $this->token = $token;
     $this->language = $language;
   }
 
-  public function textRequest($text)
+  public function textRequest($text, $options=null)
   {
-   $token = '4d416c43f41a1fa809db7932cae854c1';
-    $params = array('text' => $text);
-    echo $text;
-    // if ($language) {
-    //   $params->language = $language;
-    // }
+    if (!$options) {
+      $token = $this->token;
+    } else {
+      $token = $options && $options->token;
+    }
+    echo $token;
+    if ($this->language) {
+      $params = array('text' => $text, 'language' => $this->language);
+    } else {
+      $params = array('text' => $text);
+    }
+    var_dump($params);
 
     if (!$token) {
       return('error');
@@ -39,32 +35,31 @@ class Client
       $API_ENDPOINT = 'https://api.recast.ai/v1/request';
       $response = file_get_contents("test.json");
 
-      // $lil = new response\Response($response);
       require 'vendor/autoload.php';
       $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
       var_dump($res);
-    require 'response.php';
-    return(new response\Response($response));
+      require 'response.php';
+      return(new response\Response($response));
     }
   }
 
-  public static function fileRequest($file)
+  public  function fileRequest($file, $options=null)
   {
-    $token = '4d416c43f41a1fa809db7932cae854c1';
-    $language = 'en';
-
-    $params = array();
-    if ($language) {
-      $params->language = $language;
+    if (!$options) {
+      $token = $this->token;
+    } else {
+      $token = $options && $options->token;
     }
-
-    if (!$token)
-    {
+    echo $token;
+    if ($this->language) {
+      $params = array('language' => $this->language);
+    } else {
+      $params = array();
+    }
+    if (!$token) {
       return('error');
-    }
-    else
-    {
-      $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
+    } else {
+      $headers = array('Content-Type' => '', 'Authorization' => "Token " . $token);
       $url = 'https://api.recast.ai/v1/request';
 
       $response = Requests::post($url, $headers, json_encode($params));
@@ -73,6 +68,3 @@ class Client
     }
   }
 }
-$text = 'What is the weather in London tomorrow? And in Paris?';
-
-$lol = Client::textRequest($text);
