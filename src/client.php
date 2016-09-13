@@ -10,7 +10,7 @@ use constants;
 
 class Client
 {
-  public  function __construct($token, $language=null)
+  public  function __construct($token=null, $language=null)
   {
     $this->token = $token;
     $this->language = $language;
@@ -23,13 +23,11 @@ class Client
     } else {
       $token = $options && $options->token;
     }
-    echo $token;
     if ($this->language) {
       $params = array('text' => $text, 'language' => $this->language);
     } else {
       $params = array('text' => $text);
     }
-    var_dump($params);
 
     if (!$token) {
       return('error');
@@ -44,9 +42,9 @@ class Client
       require 'vendor/autoload.php';
 
       $res = Requests::post($const->API_ENDPOINT, $headers, json_encode($params));
-      var_dump($res);
-      require 'response.php';
-      return(new response\Response($response));
+      return ($res);
+      // require 'response.php';
+      // return(new response\Response($response));
     }
   }
 
@@ -101,7 +99,6 @@ class Client
       }
 
       $body = (string) $res->getBody();
-      echo $body;
       //  require 'response.php';
       //  return(new response\Response($res));
       //return(new response\Response($response)
