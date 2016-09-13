@@ -8,7 +8,6 @@
   ],
   "act": "wh-query",
   "type": "desc:desc",
-  "polarity": "positive",
   "sentiment": "neutral",
   "entities": {
     "action":[

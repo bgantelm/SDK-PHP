@@ -176,4 +176,18 @@ class Response
     }
     return (false);
   }
+
+  public function isVPositive() {
+    if ($this->sentiment === $this->const->SENTIMENT_VPOSITIVE) {
+      return (true);
+    }
+    return (false);
+  }
+
+  public function isVNegative() {
+    if ($this->sentiment === $this->const->SENTIMENT_VNEGATIVE) {
+      return (true);
+    }
+    return (false);
+  }
 }

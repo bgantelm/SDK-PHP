@@ -22,6 +22,8 @@ class Constants
     $this->SENTIMENT_POSITIVE = 'positive';
     $this->SENTIMENT_NEUTRAL = 'neutral';
     $this->SENTIMENT_NEGATIVE = 'negative';
+    $this->SENTIMENT_VPOSITIVE = 'vpositive';
+    $this->SENTIMENT_VNEGATIVE = 'vnegative';
   }
 }
 
