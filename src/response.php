@@ -3,12 +3,13 @@ namespace response;
 
 
 use entity;
+use constants;
 
 
 $response = file_get_contents("test.json");
 echo 'START RESPONSE                 ';
 $lol = new Response($response);
- $mdr = $lol->isWhQuery1();
+ $mdr = $lol->isWhQuery();
  var_dump($mdr);
  echo 'END RESPONSE                   ';
 class Response
@@ -41,6 +42,8 @@ class Response
     $this->version = $res->{'version'};
     $this->timestamp = $res->{'timestamp'};
     $this->status = $res->{'status'};
+    require 'constants.php';
+    $this->const = new constants\Constants();
     echo 'END CONSTRUCTOR RESPONSE               ';
   }
 
@@ -76,21 +79,22 @@ class Response
 
 
   public function isAssert() {
-    if ($this->act === 'assert') {
+    if ($this->act === $this->const->ACT_ASSERT) {
+
       return (true);
     }
     return (false);
   }
 
   public function isCommand() {
-    if ($this->act === 'command') {
+    if ($this->act === $this->const->ACT_COMMAND) {
       return (true);
     }
     return (false);
   }
 
-  public function isWhQuery1() {
-    if ($this->act === 'wh-query') {
+  public function isWhQuery() {
+    if ($this->act === $this->const->ACT_WH_QUERY) {
       echo 'OK, function DONE';
       return (true);
     }
@@ -98,7 +102,7 @@ class Response
   }
 
   public function isYnQuery() {
-    if ($this->act === 'yn-query') {
+    if ($this->act === $this->const->ACT_YN_QUERY) {
       return (true);
     }
     return (false);
@@ -108,42 +112,42 @@ class Response
 
 
   public function isAbbreviation() {
-    if ($this->type->indexOf('abbr:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_ABBREVIATION) !== -1) {
       return (true);
     }
     return (false);
   }
 
   public function isEntity() {
-    if ($this->type->indexOf('enty:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_ENTITY) !== -1) {
       return (true);
     }
     return (false);
   }
 
   public function isDescription() {
-    if ($this->type->indexOf('desc:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_DESCRIPTION) !== -1) {
       return (true);
     }
     return (false);
   }
 
   public function isHuman() {
-    if ($this->type->indexOf('hum:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_HUMAN) !== -1) {
       return (true);
     }
     return (false);
   }
 
   public function isLocation() {
-    if ($this->type->indexOf('loc:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_LOCATION) !== -1) {
       return (true);
     }
     return (false);
   }
 
   public function isNumber() {
-    if ($this->type->indexOf('num:') !== -1) {
+    if ($this->type->indexOf($this->const->TYPE_NUMBER) !== -1) {
       return (true);
     }
     return (false);
@@ -153,21 +157,21 @@ class Response
 
 
   public function isPositive() {
-    if ($this->sentiment === 'positive') {
+    if ($this->sentiment === $this->const->SENTIMENT_POSITIVE) {
       return (true);
     }
     return (false);
   }
 
   public function isNeutral() {
-    if ($this->sentiment === 'neutral') {
+    if ($this->sentiment === $this->const->SENTIMENT_NEUTRAL) {
       return (true);
     }
     return (false);
   }
 
   public function isNegative() {
-    if ($this->sentiment === 'negative') {
+    if ($this->sentiment === $this->const->SENTIMENT_NEGATIVE) {
       return (true);
     }
     return (false);

@@ -3,11 +3,14 @@ namespace client;
 
 use response;
 use Requests;
+use constants;
+
+
 
 
 class Client
 {
-  public  function __construct($token, $language)
+  public  function __construct($token, $language=null)
   {
     $this->token = $token;
     $this->language = $language;
@@ -32,11 +35,15 @@ class Client
       return('error');
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
-      $API_ENDPOINT = 'https://api.recast.ai/v1/request';
       $response = file_get_contents("test.json");
 
+      require 'constants.php';
+
+      $const = new constants\Constants();
+
       require 'vendor/autoload.php';
-      $res = Requests::post($API_ENDPOINT, $headers, json_encode($params));
+
+      $res = Requests::post($const->API_ENDPOINT, $headers, json_encode($params));
       var_dump($res);
       require 'response.php';
       return(new response\Response($response));
@@ -50,25 +57,54 @@ class Client
     } else {
       $token = $options && $options->token;
     }
-    echo $token;
-    if ($this->language) {
-      $params = array('voice' => $file, 'language' => $this->language);
-    } else {
-      $params = array('voice' => $file);
-    }
-    var_dump($params);
     if (!$token) {
       echo 'error';
       return('error');
     } else {
-      $headers = array('enctype' => 'multipart/form-data', 'Authorization' => "Token " . $token);
-      $url = 'https://api.recast.ai/v1/request';
-      //$response = file_get_contents("test.json");
-      require 'vendor/autoload.php';
+      require 'constants.php';
+      $const = new constants\Constants();
 
-      $res = Requests::post($url, $headers, json_encode($params));
-      var_dump($res);
-      //return(new response\Response($response));
+      $url = 'https://api.recast.ai/v1/request';
+      require 'vendor/autoload.php';
+      $client = new \GuzzleHttp\Client();
+
+      if (!$this->language) {
+        $res = $client->request('POST', $url, [
+          'headers' => [
+            'Authorization' => "Token " . $token
+          ],
+          'multipart' => [
+            [
+              'Content-Type' => 'multipart/form-data',
+              'name'     => 'voice',
+              'contents' => fopen($file, 'r')
+            ],
+          ]
+        ]);
+      } else {
+        $res = $client->request('POST', $const->API_ENDPOINT, [
+          'headers' => [
+            'Authorization' => "Token " . $token
+          ],
+          'multipart' => [
+            [
+              'Content-Type' => 'multipart/form-data',
+              'name'     => 'voice',
+              'contents' => fopen($file, 'r')
+            ],
+            [
+              'name' => 'language',
+              'contents' => $this->language
+            ],
+          ]
+        ]);
+      }
+
+      $body = (string) $res->getBody();
+      echo $body;
+      //  require 'response.php';
+      //  return(new response\Response($res));
+      //return(new response\Response($response)
     }
   }
 }
