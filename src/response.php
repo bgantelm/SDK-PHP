@@ -6,12 +6,12 @@ use entity;
 use constants;
 
 
-$response = file_get_contents("test.json");
-echo 'START RESPONSE                 ';
-$lol = new Response($response);
- $mdr = $lol->isWhQuery();
- var_dump($mdr);
- echo 'END RESPONSE                   ';
+// $response = file_get_contents("test.json");
+// echo 'START RESPONSE                 ';
+// $lol = new Response($response);
+//  $mdr = $lol->all('location');
+//  var_dump($mdr);
+//  echo 'END RESPONSE                   ';
 class Response
 {
 
@@ -22,19 +22,17 @@ class Response
     $res = json_decode($response);
     $this->entities = [];
 
-    $this->entities = $res->{'entities'};
     $this->act = $res->{'act'};
     $this->type = $res->{'type'};
     $this->source = $res->{'source'};
     $this->intents = $res->{'intents'};
     $this->sentiment = $res->{'sentiment'};
-    $this->entity = [];
 
     require_once 'entity.php';
 
     foreach ($res->{'entities'} as $key => $value) {
       foreach ($value as $i => $entity) {
-        $this->entity[] = new entity\Entity($key, $entity);
+        $this->entities[] = new entity\Entity($key, $entity);
       }
     }
 
@@ -42,16 +40,16 @@ class Response
     $this->version = $res->{'version'};
     $this->timestamp = $res->{'timestamp'};
     $this->status = $res->{'status'};
-    require 'constants.php';
+    //require 'constants.php';
     $this->const = new constants\Constants();
     echo 'END CONSTRUCTOR RESPONSE               ';
   }
 
   public function get($name) {
-    $count = count($this->entity);
+    $count = count($this->entities);
     for ($i = 0; $i <= $count; $i++) {
-      if ($this->entity[$i]->name == $name) {
-       return ($this->entity[$i]);
+      if ($this->entities[$i]->name == $name) {
+       return ($this->entities[$i]);
      }
     }
     return null;
@@ -59,11 +57,11 @@ class Response
 
 
   public function all($name) {
-    $count = count($this->entity);
+    $count = count($this->entities);
     $res = [];
-    for ($i = 0; $i <= $count ; $i++) {
-      for ($i = $i; $this->entity[$i]->name == $name; $i++) {
-        $res[] = $this->entity[$i];
+    for ($i = 0; $i < $count ; $i++) {
+      if ($this->entities[$i]->name == $name) {
+        $res[] = $this->entities[$i];
       }
     }
     return ($res);
@@ -95,7 +93,6 @@ class Response
 
   public function isWhQuery() {
     if ($this->act === $this->const->ACT_WH_QUERY) {
-      echo 'OK, function DONE';
       return (true);
     }
     return (false);
@@ -112,42 +109,42 @@ class Response
 
 
   public function isAbbreviation() {
-    if ($this->type->indexOf($this->const->TYPE_ABBREVIATION) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_ABBREVIATION)) {
       return (true);
     }
     return (false);
   }
 
   public function isEntity() {
-    if ($this->type->indexOf($this->const->TYPE_ENTITY) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_ENTITY)) {
       return (true);
     }
     return (false);
   }
 
   public function isDescription() {
-    if ($this->type->indexOf($this->const->TYPE_DESCRIPTION) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_DESCRIPTION)) {
       return (true);
     }
     return (false);
   }
 
   public function isHuman() {
-    if ($this->type->indexOf($this->const->TYPE_HUMAN) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_HUMAN)) {
       return (true);
     }
     return (false);
   }
 
   public function isLocation() {
-    if ($this->type->indexOf($this->const->TYPE_LOCATION) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_LOCATION)) {
       return (true);
     }
     return (false);
   }
 
   public function isNumber() {
-    if ($this->type->indexOf($this->const->TYPE_NUMBER) !== -1) {
+    if (strstr($this->type, $this->const->TYPE_NUMBER)) {
       return (true);
     }
     return (false);

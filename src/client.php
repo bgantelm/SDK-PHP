@@ -30,7 +30,7 @@ class Client
     }
 
     if (!$token) {
-      return('error');
+      return('Token is missing');
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
       $response = file_get_contents("test.json");
@@ -56,10 +56,8 @@ class Client
       $token = $options && $options->token;
     }
     if (!$token) {
-      echo 'error';
-      return('error');
+      return('Token is missing');
     } else {
-      require 'constants.php';
       $const = new constants\Constants();
 
       $url = 'https://api.recast.ai/v1/request';
@@ -97,7 +95,7 @@ class Client
           ]
         ]);
       }
-
+      return ($res);
       $body = (string) $res->getBody();
       //  require 'response.php';
       //  return(new response\Response($res));
