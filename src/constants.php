@@ -4,27 +4,25 @@ namespace constants;
 
 class Constants
 {
-  public function __construct() {
-    $this->API_ENDPOINT = 'https://api.recast.ai/v1/request';
+    const API_ENDPOINT = 'https://api.recast.ai/v1/request';
 
-    $this->ACT_ASSERT = 'assert';
-    $this->ACT_COMMAND = 'command';
-    $this->ACT_WH_QUERY = 'wh-query';
-    $this->ACT_YN_QUERY = 'yn-query';
+    const ACT_ASSERT = 'assert';
+    const ACT_COMMAND = 'command';
+    const ACT_WH_QUERY = 'wh-query';
+    const ACT_YN_QUERY = 'yn-query';
 
-    $this->TYPE_ABBREVIATION = 'abbr:';
-    $this->TYPE_ENTITY = 'enty:';
-    $this->TYPE_DESCRIPTION = 'desc:';
-    $this->TYPE_HUMAN = 'hum:';
-    $this->TYPE_LOCATION = 'loc:';
-    $this->TYPE_NUMBER = 'num:';
+    const TYPE_ABBREVIATION = 'abbr:';
+    const TYPE_ENTITY = 'enty:';
+    const TYPE_DESCRIPTION = 'desc:';
+    const TYPE_HUMAN = 'hum:';
+    const TYPE_LOCATION = 'loc:';
+    const TYPE_NUMBER = 'num:';
 
-    $this->SENTIMENT_POSITIVE = 'positive';
-    $this->SENTIMENT_NEUTRAL = 'neutral';
-    $this->SENTIMENT_NEGATIVE = 'negative';
-    $this->SENTIMENT_VPOSITIVE = 'vpositive';
-    $this->SENTIMENT_VNEGATIVE = 'vnegative';
-  }
+    const SENTIMENT_POSITIVE = 'positive';
+    const SENTIMENT_NEUTRAL = 'neutral';
+    const SENTIMENT_NEGATIVE = 'negative';
+    const SENTIMENT_VPOSITIVE = 'vpositive';
+    const SENTIMENT_VNEGATIVE = 'vnegative';
 }
 
 ?>

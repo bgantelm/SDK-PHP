@@ -1,14 +1,13 @@
 <?php
 namespace response;
 
-
 use entity;
 use constants;
 
+require 'entity.php';
+
 class Response
 {
-
-
   public function __construct($response)
   {
     $res = json_decode($response);
@@ -20,8 +19,6 @@ class Response
     $this->intents = $res->{'intents'};
     $this->sentiment = $res->{'sentiment'};
 
-    require_once 'entity.php';
-
     foreach ($res->{'entities'} as $key => $value) {
       foreach ($value as $i => $entity) {
         $this->entities[] = new entity\Entity($key, $entity);
@@ -32,149 +29,120 @@ class Response
     $this->version = $res->{'version'};
     $this->timestamp = $res->{'timestamp'};
     $this->status = $res->{'status'};
-    $this->const = new constants\Constants();
   }
 
   public function get($name) {
     $count = count($this->entities);
+
     for ($i = 0; $i <= $count; $i++) {
       if ($this->entities[$i]->name == $name) {
-       return ($this->entities[$i]);
-     }
+        return ($this->entities[$i]);
+      }
     }
+
     return null;
   }
-
 
   public function all($name) {
     $count = count($this->entities);
     $res = [];
+
     for ($i = 0; $i < $count ; $i++) {
       if ($this->entities[$i]->name == $name) {
         $res[] = $this->entities[$i];
       }
     }
+
     return ($res);
   }
 
-
   public function intent() {
-    if ($this->intents[0])
-    return ($this->intents[0]);
-    else
-     return (null);
+    if ($this->intents[0]) {
+      return ($this->intents[0]);
+    }
+
+    return (null);
   }
 
 
   public function isAssert() {
-    if ($this->act === $this->const->ACT_ASSERT) {
-
-      return (true);
-    }
-    return (false);
+    return ($this->act === constants\Constants::ACT_ASSERT);
   }
 
   public function isCommand() {
-    if ($this->act === $this->const->ACT_COMMAND) {
-      return (true);
-    }
-    return (false);
+    return ($this->act === constants\Constants::ACT_COMMAND);
   }
 
   public function isWhQuery() {
-    if ($this->act === $this->const->ACT_WH_QUERY) {
-      return (true);
-    }
-    return (false);
+    return ($this->act === constants\Constants::ACT_WH_QUERY);
   }
 
   public function isYnQuery() {
-    if ($this->act === $this->const->ACT_YN_QUERY) {
-      return (true);
-    }
-    return (false);
+    return ($this->act === constants\Constants::ACT_YN_QUERY);
   }
 
 
 
 
   public function isAbbreviation() {
-    if (strstr($this->type, $this->const->TYPE_ABBREVIATION)) {
+    if (strstr($this->type, constants\Constants::TYPE_ABBREVIATION)) {
       return (true);
     }
     return (false);
   }
 
   public function isEntity() {
-    if (strstr($this->type, $this->const->TYPE_ENTITY)) {
+    if (strstr($this->type, constants\Constants::TYPE_ENTITY)) {
       return (true);
     }
     return (false);
   }
 
   public function isDescription() {
-    if (strstr($this->type, $this->const->TYPE_DESCRIPTION)) {
+    if (strstr($this->type, constants\Constants::TYPE_DESCRIPTION)) {
       return (true);
     }
     return (false);
   }
 
   public function isHuman() {
-    if (strstr($this->type, $this->const->TYPE_HUMAN)) {
+    if (strstr($this->type, constants\Constants::TYPE_HUMAN)) {
       return (true);
     }
     return (false);
   }
 
   public function isLocation() {
-    if (strstr($this->type, $this->const->TYPE_LOCATION)) {
+    if (strstr($this->type, constants\Constants::TYPE_LOCATION)) {
       return (true);
     }
     return (false);
   }
 
   public function isNumber() {
-    if (strstr($this->type, $this->const->TYPE_NUMBER)) {
+    if (strstr($this->type, constants\Constants::TYPE_NUMBER)) {
       return (true);
     }
     return (false);
   }
 
-
-
-
   public function isPositive() {
-    if ($this->sentiment === $this->const->SENTIMENT_POSITIVE) {
-      return (true);
-    }
-    return (false);
+    return ($this->sentiment === constants\Constants::SENTIMENT_POSITIVE);
   }
 
   public function isNeutral() {
-    if ($this->sentiment === $this->const->SENTIMENT_NEUTRAL) {
-      return (true);
-    }
-    return (false);
+    return ($this->sentiment === constants\Constants::SENTIMENT_NEUTRAL);
   }
 
   public function isNegative() {
-    if ($this->sentiment === $this->const->SENTIMENT_NEGATIVE) {
-      return (true);
-    }
-    return (false);
+    return ($this->sentiment === constants\Constants::SENTIMENT_NEGATIVE);
   }
 
   public function isVPositive() {
-    if ($this->sentiment === $this->const->SENTIMENT_VPOSITIVE) {
-      return (true);
-    }
-    return (false);
+    return ($this->sentiment === constants\Constants::SENTIMENT_VPOSITIVE);
   }
 
   public function isVNegative() {
-    if ($this->sentiment === $this->const->SENTIMENT_VNEGATIVE) {
-      return (true);
-    }
-    return (false);
+    return ($this->sentiment === constants\Constants::SENTIMENT_VNEGATIVE);
   }
 }

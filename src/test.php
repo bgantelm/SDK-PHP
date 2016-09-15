@@ -13,9 +13,8 @@ $client = new Client($token. $language);
 $options = array('language' => 'en', 'token' => '4d416c43f41a1fa809db7932cae854c1');
 
 $res = $client->textRequest($text);
-$result = $res->get('location');
-var_dump($result->name);
-var_dump($result->raw);
+$result = $res->isWhQuery();
+var_dump($result);
 
 
  ?>
