@@ -4,44 +4,44 @@
 
 ![alt text][logo]
 
-Recast.AI official SDK in Node.js
+Recast.AI official SDK in PHP
 
 ## Synospis
 
-This module is a Node.js interface to the [Recast.AI](https://recast.ai) API. It allows you to make request to your bots
+This module is a PHP interface to the [Recast.AI](https://recast.ai) API. It allows you to make request to your bots
 
 ## Installation
 
 ```bash
-npm install --save recastai
+composer require recastai/sdk-php
 ```
 
 ## Usage
 
 
-```javascript
-var recastai = require('recastai')
+```php
+<?php
+use client\Client;
 
-var client = new recastai.Client(YOUR_TOKEN, YOUR_LANGUAGE)
+require 'client.php';
 
-client.textRequest(YOUR_TEXT, function(res, err) {
-  if (err) {
-    // Handle error
-  } else if (res.intent() === YOUR_INTENT) {
-    // Do your code...
-  }
-})
+$client = new Client(YOUR_TOKEN, YOUR_LANGUAGE);
+
+$res = $client->textRequest(YOUR_TEXT);
+YOUR_INTENT = $res->intent();
+// Do your code...
+
+?>
 ```
 
 ## Specs
 
 ### Classes
 
-This module contains 5 classes, as follows:
+This module contains 4 classes, as follows:
 
 * Client is the client allowing you to make requests.
 * Response contains the response from [Recast.AI](https://recast.ai).
-* Sentence represents a sentence of the response.
 * Entity represents an entity found by Recast.AI in your user's input.
 * RecastError is the error returned by the module.
 
@@ -51,8 +51,8 @@ Don't hesitate to dive into the code, it's commented ;)
 
 The Client can be instanciated with a token and a language (both optional).
 
-```javascript
-var client = new recastai.Client(YOUR_TOKEN, YOUR_LANGUAGE)
+```php
+$client = new Client(YOUR_TOKEN, YOUR_LANGUAGE);
 ```
 
 __Your tokens:__
@@ -65,32 +65,34 @@ __Your tokens:__
 
 __Your language__
 
-```javascript
-var client = new recastai.Client(YOUR_TOKEN, 'en')
+```php
+$client = new Client(YOUR_TOKEN, 'en');
 ```
 *The language is a lowercase 639-1 isocode.*
 
 ## Text Request
 
-textRequest(text, callback, options = { token: YOUR_TOKEN, language: YOUR_LANGUAGE, proxy: YOUR_URL_PROXY })
+textRequest(text, options = { token: YOUR_TOKEN, language: YOUR_LANGUAGE, proxy: YOUR_URL_PROXY })
 
 If your pass a token or a language in the options parameter, it will override your default client language or token.
 You can pass a proxy url in the options if needed.
 
-```javascript
-client.textRequest(YOUR_TEXT, function(res, err) {
-    // Do your code...¯
+```php
+$res = $client->textRequest(YOUR_TEXT);
+// Do your code...¯
 
 })
 ```
 
-```javascript
+```php
 // With optional parameters
 
-client.textRequest(YOUR_TEXT, function(res, err) {
-  // Do your code...
+$options = array('language' => 'YOUR_LANGUAGE', 'token' => 'YOUR_TOKEN');
 
-}, { token: YOUR_TOKEN, language: YOUR_LANGUAGE })
+$res = $client->textRequest(YOUR_TEXT, $options);  
+
+// Do your code...
+
 ```
 
 __If a language is provided:__ the language you've given is used for processing if your bot has expressions for it, else your bot's primary language is used.
