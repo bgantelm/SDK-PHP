@@ -18,6 +18,15 @@ class Client
     $this->language = $language;
   }
 
+  /**
+   * Sends a text request to Recast and returns the response.
+   *
+   * @param string                  $text
+   *
+   * @return Response
+   *
+   * @throws Token is missing
+   */
   public function textRequest($text, $options=null)
   {
     if (!$options) {
@@ -44,12 +53,29 @@ class Client
     }
   }
 
+  /**
+   * Sends a request to Recast and returns the response.
+   *
+   * @param string                  $url
+   * @param array                   $headers
+   * @param array                   $params
+   *
+   * @return Response               $res
+   */
   protected function requestPrivate($url, $headers, $params) {
     $res = Requests::post($url, $headers, json_encode($params));
 
     return ($res);
   }
 
+  /**
+   * Sends a request to Recast and returns the response.
+   *
+   * @param string                  $url
+   * @param array                   $params
+   *
+   * @return Response               $res
+   */
   protected function requestFilePrivate($url, $params) {
     $client = new \GuzzleHttp\Client();
     $res = $client->request('POST', $url, $params);
@@ -57,6 +83,15 @@ class Client
     return ($res);
   }
 
+  /**
+   * Sends a file request to Recast and returns the response.
+   *
+   * @param string                  $file
+   *
+   * @return Response
+   *
+   * @throws Token is missing
+   */
   public  function fileRequest($file, $options=null)
   {
     if (!$options) {

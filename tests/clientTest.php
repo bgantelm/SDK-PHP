@@ -10,10 +10,7 @@ use constants;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception;
 
-
-
 require './src/client.php';
-
 
 class ClientTest extends \PHPUnit_Framework_TestCase {
 
@@ -99,12 +96,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
      $res = $stub->fileRequest($file);
      $this->assertEquals(200, $res);
 
-    // $token = '4d416c43f41a1fa809db7932cae854c1';
-    // $language = 'en';
-    // $client = new client\Client($token, $language);
-    //
-    // $res = $client->fileRequest('./file.wav');
-    // $this->assertEquals($res->getStatusCode(), 200);
   }
 
   public function testfileRequestIfNoToken() {
@@ -113,18 +104,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $res = $client->fileRequest('./file.wav');
     $this->assertEquals($res, 'Token is missing');
   }
-
-  // public function testfileRequestIf404() {
-  //   $client = new client\Client();
-  //
-  //   $options = (object) [
-  //     'language' => 'fr',
-  //   ];
-  //   $res = $client->fileRequest('./file.wav', $options);
-  //   var_dump($res);
-  //   $this->assertEquals($res->getStatusCode(), 404);
-  // }
-
 }
 
- ?>
+?>
