@@ -6,7 +6,6 @@ use client;
 use constants;
 use response;
 use Requests;
-require './src/response.php';
 
 
 class ResponseTest extends \PHPUnit_Framework_TestCase {

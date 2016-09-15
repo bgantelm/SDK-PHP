@@ -8,10 +8,14 @@ $text = 'What is the weather in London tomorrow? And in Paris?';
 $file = './file.wav';
 $language = 'en';
 
-$client = new Client($token, $language);
+$client = new Client($token. $language);
 
-$lol = $client->fileRequest($file);
+$options = array('language' => 'en', 'token' => '4d416c43f41a1fa809db7932cae854c1');
 
-$body = (string) $lol->getBody();
-var_dump($body);
+$res = $client->textRequest($text);
+$result = $res->get('location');
+var_dump($result->name);
+var_dump($result->raw);
+
+
  ?>

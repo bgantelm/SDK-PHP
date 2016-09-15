@@ -7,6 +7,7 @@ use constants;
 
 
 require 'constants.php';
+require 'response.php';
 
 
 class Client
@@ -19,10 +20,12 @@ class Client
 
   public function textRequest($text, $options=null)
   {
+    var_dump($options);
+
     if (!$options) {
       $token = $this->token;
     } else {
-      $token = $options && $options->token;
+      $token = $options && $options['token'];
     }
     if ($this->language) {
       $params = array('text' => $text, 'language' => $this->language);
@@ -34,22 +37,20 @@ class Client
       return('Token is missing');
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
-      // $response = file_get_contents("test.json");
+      $response = file_get_contents("test.json");
 
 
       $const = new constants\Constants();
 
       require 'vendor/autoload.php';
       $res = $this->requestPrivate($const->API_ENDPOINT, $headers, $params);
-      return ($res);
-      // require 'response.php';
-      // return(new response\Response($response));
+      // return ($res);
+      return(new response\Response($response));
     }
   }
 
   protected function requestPrivate($url, $headers, $params) {
     require 'vendor/autoload.php';
-    echo 'YEP                       ';
 
     $res = Requests::post($url, $headers, json_encode($params));
     return ($res);
@@ -66,20 +67,18 @@ class Client
 
   public  function fileRequest($file, $options=null)
   {
+    var_dump($options['token']);
     if (!$options) {
       $token = $this->token;
     } else {
-      $token = $options && $options->token;
+      $token = $options['token'];
+      echo $token;
     }
     if (!$token) {
       return('Token is missing');
     } else {
-      //  require 'constants.php';
-
       $const = new constants\Constants();
-
       $url = $const->API_ENDPOINT;
-
 
       if (!$this->language) {
         $params = [
@@ -116,12 +115,10 @@ class Client
         ];
         $res = $this->requestFilePrivate($url, $params);
       }
-      return ($res);
-      // $body = (string) $res->getBody();
-      // var_dump($body);
-      //  require 'response.php';
-      //  return(new response\Response($res));
-      //return(new response\Response($response)
+  //     return ($res);
+       // $body = (string) $res->getBody();
+       $response = file_get_contents("test.json");
+       return(new response\Response($response));
     }
   }
 }

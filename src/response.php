@@ -5,13 +5,6 @@ namespace response;
 use entity;
 use constants;
 
-
-// $response = file_get_contents("test.json");
-// echo 'START RESPONSE                 ';
-// $lol = new Response($response);
-//  $mdr = $lol->all('location');
-//  var_dump($mdr);
-//  echo 'END RESPONSE                   ';
 class Response
 {
 
@@ -39,7 +32,6 @@ class Response
     $this->version = $res->{'version'};
     $this->timestamp = $res->{'timestamp'};
     $this->status = $res->{'status'};
-    //require 'constants.php';
     $this->const = new constants\Constants();
   }
 
