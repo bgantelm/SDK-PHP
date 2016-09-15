@@ -18,7 +18,6 @@ class Response
 
   public function __construct($response)
   {
-    echo 'START CONSTRUCTOR RESPONSE                      ';
     $res = json_decode($response);
     $this->entities = [];
 
@@ -42,7 +41,6 @@ class Response
     $this->status = $res->{'status'};
     //require 'constants.php';
     $this->const = new constants\Constants();
-    echo 'END CONSTRUCTOR RESPONSE               ';
   }
 
   public function get($name) {

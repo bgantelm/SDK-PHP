@@ -12,4 +12,6 @@ $client = new Client($token, $language);
 
 $lol = $client->fileRequest($file);
 
+$body = (string) $lol->getBody();
+var_dump($body);
  ?>

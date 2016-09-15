@@ -7,6 +7,11 @@ use client;
 use response;
 use Requests;
 use constants;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception;
+
+
+
 require './src/client.php';
 
 
@@ -50,39 +55,56 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testtextRequestIfAllOkay() {
+
+    $text = 'What is the weather in London tomorrow? And in Paris?';
     $token = '4d416c43f41a1fa809db7932cae854c1';
     $language = 'en';
-    $client = new client\Client($token, $language);
 
-    $res = $client->textRequest('Hello world');
-    $this->assertEquals($res->status_code, 200);
+    $stub = $this->getMockBuilder('client\Client')
+                 ->setConstructorArgs(array($token, $language))
+                 ->setMethods(['requestPrivate'])
+                 ->getMock();
+
+    $stub->expects($this->once())
+         ->method('requestPrivate')
+         ->will($this->returnValue(200));
+
+     $res = $stub->textRequest($text);
+     $this->assertEquals(200, $res);
+
   }
 
   public function testtextRequestIfNoToken() {
-    $client = new client\Client();
 
+    $client = new client\Client();
     $res = $client->textRequest('Hello world');
     $this->assertEquals($res, 'Token is missing');
   }
 
-  // public function testtextRequestIf404() {
-  //   $client = new client\Client();
-  //
-  //   $options = (object) [
-  //     'language' => 'fr',
-  //   ];
-  //   $res = $client->textRequest('Hello world', $options);
-  //   var_dump($res);
-  //   $this->assertEquals($res->status_code, 404);
-  // }
-
   public function testfileRequestIfAllOkay() {
+
+    $file = './file.wav';
     $token = '4d416c43f41a1fa809db7932cae854c1';
     $language = 'en';
-    $client = new client\Client($token, $language);
 
-    $res = $client->fileRequest('./file.wav');
-    $this->assertEquals($res->getStatusCode(), 200);
+    $stub = $this->getMockBuilder('client\Client')
+                 ->setConstructorArgs(array($token, $language))
+                 ->setMethods(['requestFilePrivate'])
+                 ->getMock();
+
+    $stub->expects($this->once())
+         ->method('requestFilePrivate')
+         ->will($this->returnValue(200));
+
+     $res = $stub->fileRequest($file);
+     $this->assertEquals(200, $res);
+
+    // $token = '4d416c43f41a1fa809db7932cae854c1';
+    // $language = 'en';
+    // $client = new client\Client($token, $language);
+    //
+    // $res = $client->fileRequest('./file.wav');
+    // $this->assertEquals($res->getStatusCode(), 200);
   }
 
   public function testfileRequestIfNoToken() {

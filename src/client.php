@@ -6,6 +6,7 @@ use Requests;
 use constants;
 
 
+require 'constants.php';
 
 
 class Client
@@ -33,19 +34,34 @@ class Client
       return('Token is missing');
     } else {
       $headers = array('Content-Type' => 'application/json', 'Authorization' => "Token " . $token);
-      $response = file_get_contents("test.json");
+      // $response = file_get_contents("test.json");
 
-      require 'constants.php';
 
       $const = new constants\Constants();
 
       require 'vendor/autoload.php';
-
-      $res = Requests::post($const->API_ENDPOINT, $headers, json_encode($params));
+      $res = $this->requestPrivate($const->API_ENDPOINT, $headers, $params);
       return ($res);
       // require 'response.php';
       // return(new response\Response($response));
     }
+  }
+
+  protected function requestPrivate($url, $headers, $params) {
+    require 'vendor/autoload.php';
+    echo 'YEP                       ';
+
+    $res = Requests::post($url, $headers, json_encode($params));
+    return ($res);
+  }
+
+  protected function requestFilePrivate($url, $params) {
+    require 'vendor/autoload.php';
+
+    $client = new \GuzzleHttp\Client();
+    $res = $client->request('POST', $url, $params);
+    return ($res);
+
   }
 
   public  function fileRequest($file, $options=null)
@@ -58,14 +74,15 @@ class Client
     if (!$token) {
       return('Token is missing');
     } else {
+      //  require 'constants.php';
+
       $const = new constants\Constants();
 
-      $url = 'https://api.recast.ai/v1/request';
-      require 'vendor/autoload.php';
-      $client = new \GuzzleHttp\Client();
+      $url = $const->API_ENDPOINT;
+
 
       if (!$this->language) {
-        $res = $client->request('POST', $url, [
+        $params = [
           'headers' => [
             'Authorization' => "Token " . $token
           ],
@@ -76,9 +93,12 @@ class Client
               'contents' => fopen($file, 'r')
             ],
           ]
-        ]);
+        ];
+        echo 'lol';
+        var_dump($params);
+        $res = $this->requestFilePrivate($url, $params);
       } else {
-        $res = $client->request('POST', $const->API_ENDPOINT, [
+        $params = [
           'headers' => [
             'Authorization' => "Token " . $token
           ],
@@ -93,10 +113,12 @@ class Client
               'contents' => $this->language
             ],
           ]
-        ]);
+        ];
+        $res = $this->requestFilePrivate($url, $params);
       }
       return ($res);
-      $body = (string) $res->getBody();
+      // $body = (string) $res->getBody();
+      // var_dump($body);
       //  require 'response.php';
       //  return(new response\Response($res));
       //return(new response\Response($response)
