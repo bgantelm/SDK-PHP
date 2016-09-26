@@ -1,4 +1,4 @@
-# Recast.AI - SDK Node.js
+# Recast.AI - SDK PHP
 
 [logo]: https://github.com/RecastAI/SDK-NodeJs/blob/master/misc/logo-inline.png "Recast.AI"
 
