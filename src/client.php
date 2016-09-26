@@ -138,11 +138,8 @@ class Client
         ];
         $res = $this->requestFilePrivate($url, $params);
       }
-  //     return ($res);
-       // $body = (string) $res->getBody();
-       $response = file_get_contents("test.json");
-
-       return(new response\Response($response));
+       $body = (string) $res->getBody();
+       return(new response\Response($body));
     }
   }
 }

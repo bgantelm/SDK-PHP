@@ -121,7 +121,7 @@ $options = array('language' => 'en', 'token' => YOUR_TOKEN);
 
 $res = $client->fileRequest('myFile.wav', $options);
   // Do your code...
-  
+
 ```
 
 __If a language is provided:__
@@ -144,7 +144,7 @@ The Response is generated after a call to either fileRequest or textRequest.
 $res = $client->textRequest($text);
 $lol = $res->intent();
 
-if ($result->name == 'weather') {
+if ($result->slug == 'weather') {
   // Do your code...
 }
 
@@ -215,7 +215,7 @@ $res = $client->textRequest($text);
 
 $result = $res->get('location');
 
-var_dump($result->name);
+var_dump($result->slug);
 var_dump($result->raw);
 ```
 

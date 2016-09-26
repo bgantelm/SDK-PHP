@@ -67,7 +67,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
          ->will($this->returnValue(200));
 
      $res = $stub->textRequest($text);
-     $this->assertEquals(200, $res);
+     $this->assertEquals(200, $res->status);
 
   }
 
@@ -94,7 +94,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
          ->will($this->returnValue(200));
 
      $res = $stub->fileRequest($file);
-     $this->assertEquals(200, $res);
+     $this->assertEquals(200, $res->status);
 
   }
 

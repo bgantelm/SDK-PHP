@@ -7,7 +7,6 @@ use constants;
 use response;
 use Requests;
 use entity;
-require './src/entity.php';
 
 
 class EntityTest extends \PHPUnit_Framework_TestCase {
